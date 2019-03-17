@@ -20,7 +20,7 @@ The game example consists in a fight between two players where both start the ma
 The player who starts the match is decided randomly before the game starts. 
 The loser is the player who reaches Zero life points first.
 
-About the implementation:
+Links for the implementation:
 
 1. [Game Controllers](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller)
 2. [Game Model](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model)
