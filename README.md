@@ -1,4 +1,4 @@
-# SimpleTurnBasedGame Core Mechanics
+# Simple Turn-Based Game Core Mechanics
 
 The idea here is to have the core implementation and the basic funcionalities of a Turn-Based Game working in a clean repository. So, every time you start a new turn-based game project/prototype just reuse this implementation and don't start from Zero.
 
