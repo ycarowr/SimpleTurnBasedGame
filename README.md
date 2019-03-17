@@ -31,4 +31,4 @@ Links for the implementation:
 
 
 
-Gif with all Game Flow ![alt text][https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Textures/SimpleTurnBasedGame/gifs/Game%20Flow.gif]
+Gif with the Game Flow ![alt text](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Textures/SimpleTurnBasedGame/gifs/Game%20Flow.gif)
