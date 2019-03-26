@@ -1,33 +1,24 @@
 ﻿using System.Collections.Generic;
+using SimpleTurnBasedGame;
 using UnityEngine;
 
-namespace SimpleTurnBasedGame
+[RequireComponent(typeof(IUiUserInput))]
+[RequireComponent(typeof(IUiPlayerController))]
+public class UiPreStartGameUser : UiListener, IPreGameStart
 {
-    [RequireComponent(typeof(IUiUserInput))]
-    [RequireComponent(typeof(IUiPlayer))]
-    public class UiPreStartGameUser : UiListener, IPreGameStart
+    private IUiUserInput UserInput { get; set; }
+    private IUiPlayerController Player { get; set; }
+
+    void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
     {
-        private IUiUserInput UserInput { get; set; }
-        private IUiPlayer Ui { get; set; }
+        if (Player.IsMyTurn)
+            UserInput.Disable();
+    }
 
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Game Events
-
-        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
-        {
-            if (Ui.PlayerController.IsMyTurn)
-                UserInput.Disable();
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        private void Awake()
-        {
-            UserInput = GetComponent<IUiUserInput>();
-            Ui = GetComponentInParent<IUiPlayer>();
-        }
+    private void Awake()
+    {
+        UserInput = GetComponent<IUiUserInput>();
+        Debug.Log(UserInput);
+        Player = GetComponent<IUiPlayerController>();
     }
 }

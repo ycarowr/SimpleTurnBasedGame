@@ -1,7 +1,7 @@
 ﻿namespace Patterns
 {
     /// <summary>
-    ///     Pretty good description with an UML diagram on the link below.
+    ///     Command base class. 
     ///     Refs: https://java-design-patterns.com/patterns/command/
     /// </summary>
     public abstract class Command

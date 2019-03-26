@@ -3,61 +3,21 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public interface IRestartGameHandler
+    public interface IUiEndGameController
     {
         void RestartGame();
     }
 
     /// <summary>
-    ///     End game HUD. Solves model dependencies accessing the game controller via Singleton.
+    ///     End game HUD.
     /// </summary>
     [RequireComponent(typeof(IUiUserInput))]
-    public class UiEndGameContainer : UiListener,
-        IRestartGameHandler,
+    public class UiEndGameContainer : UiListener, IUiEndGameController,
         IFinishGame,
-        IStartGame,
-        IUiController
+        IStartGame
     {
-        //----------------------------------------------------------------------------------------------------------
-
-        void IRestartGameHandler.RestartGame()
-        {
-            GameController.RestartGameImmediately();
-        }
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Unity Callbacks
-
-        private void Awake()
-        {
-            //user input
-            UserInput = gameObject.AddComponent<UiUserInput>();
-
-            //HUD end game
-            gameObject.AddComponent<UiButtonsEndGame>();
-        }
-
-        #endregion
-
-        private IEnumerator EnableInput()
-        {
-            yield return new WaitForSeconds(DelayToEnable);
-            UserInput.Enable();
-        }
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Properties
-
         private const float DelayToEnable = 1f;
         private IUiUserInput UserInput { get; set; }
-        public IGameController GameController => ControllerCs.GameController.Instance;
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Game Events
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
@@ -69,6 +29,24 @@ namespace SimpleTurnBasedGame
             UserInput.Disable();
         }
 
-        #endregion
+        void IUiEndGameController.RestartGame()
+        {
+            GameController.Instance.RestartGameImmediately();
+        }
+
+        private void Awake()
+        {
+            //user input
+            UserInput = gameObject.AddComponent<UiUserInput>();
+
+            //HUD end game
+            gameObject.AddComponent<UiButtonsEndGame>();
+        }
+
+        private IEnumerator EnableInput()
+        {
+            yield return new WaitForSeconds(DelayToEnable);
+            UserInput.Enable();
+        }
     }
 }

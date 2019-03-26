@@ -5,8 +5,6 @@
     /// </summary>
     public class UiUserContainer : UiPlayerContainer
     {
-        public override PlayerSeat Seat => PlayerSeat.Bottom;
-
         private void Awake()
         {
             //HUD input

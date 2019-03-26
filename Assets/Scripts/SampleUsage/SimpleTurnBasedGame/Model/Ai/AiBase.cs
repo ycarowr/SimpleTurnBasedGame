@@ -9,30 +9,14 @@ namespace SimpleTurnBasedGame.AI
     /// </summary>
     public abstract class AiBase
     {
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Constructor
-
         protected AiBase(IPrimitivePlayer player, IPrimitiveGame game)
         {
             Game = game;
             Player = player;
         }
 
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Properties
-
         protected IPrimitiveGame Game { get; }
         protected IPrimitivePlayer Player { get; }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Operations
 
         public abstract MoveType GetBestMove();
 
@@ -55,12 +39,8 @@ namespace SimpleTurnBasedGame.AI
 
         protected bool CanKill()
         {
-            var enemy = Game.TurnLogic.GetOpponent(Player);
+            var enemy = Game.Token.GetOpponent(Player);
             return enemy.Health == 1;
         }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
     }
 }

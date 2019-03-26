@@ -11,9 +11,10 @@ namespace SimpleTurnBasedGame.AI
     /// </summary>
     public class AiModule
     {
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Constructor
+        /// <summary>
+        ///     Register with all the Ai submodules.
+        /// </summary>
+        private readonly Dictionary<AiArchetype, AiBase> subModules = new Dictionary<AiArchetype, AiBase>();
 
         public AiModule(IPrimitivePlayer player, IPrimitiveGame game)
         {
@@ -30,11 +31,10 @@ namespace SimpleTurnBasedGame.AI
             CurrentAi = subModules.Keys.ToList().RandomItem();
         }
 
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Factory
+        /// <summary>
+        ///     Ai that is current operating.
+        /// </summary>
+        private AiArchetype CurrentAi { get; set; }
 
         /// <summary>
         ///     Small factory to create sub ai modules.
@@ -59,28 +59,6 @@ namespace SimpleTurnBasedGame.AI
             }
         }
 
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Properties and Fields 
-
-        /// <summary>
-        ///     Register with all the AiConfigs submodules.
-        /// </summary>
-        private readonly Dictionary<AiArchetype, AiBase> subModules = new Dictionary<AiArchetype, AiBase>();
-
-        /// <summary>
-        ///     AiConfigs that is current operating.
-        /// </summary>
-        private AiArchetype CurrentAi { get; set; }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Operations 
-
         /// <summary>
         ///     Returns the best move according to the current ai submodule.
         /// </summary>
@@ -102,9 +80,5 @@ namespace SimpleTurnBasedGame.AI
         {
             CurrentAi = archetype;
         }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
     }
 }

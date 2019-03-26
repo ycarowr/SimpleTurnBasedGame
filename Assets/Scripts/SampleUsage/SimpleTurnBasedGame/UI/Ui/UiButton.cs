@@ -18,18 +18,22 @@ namespace SimpleTurnBasedGame
         protected IButtonHandler Handler { get; private set; }
 
         /// <summary>
+        ///     Caches the UI Unity Component
+        /// </summary>
+        protected virtual void Awake()
+        {
+            if (Button == null)
+                Button = GetComponent<Button>();
+        }
+
+        /// <summary>
         ///     Add more listeners to the button event.
         /// </summary>
         /// <param name="action"></param>
         public void AddListener(UnityAction action)
         {
-            if (action == null)
-                return;
-
-            if (Button == null)
-                Button = GetComponent<Button>();
-
-            Button.onClick.AddListener(action);
+            if (action != null)
+                Button.onClick.AddListener(action);
         }
 
         public void RemoveListener(UnityAction action)
@@ -49,7 +53,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        ///     Override this function to implement the funcionality.
+        ///     The assignment of the event of each specific button has to be implemented overriding this function.
         /// </summary>
         /// <param name="handler"></param>
         protected abstract void OnSetHandler(IButtonHandler handler);

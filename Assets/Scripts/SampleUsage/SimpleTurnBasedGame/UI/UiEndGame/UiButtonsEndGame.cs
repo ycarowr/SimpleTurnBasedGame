@@ -2,21 +2,21 @@
 
 namespace SimpleTurnBasedGame
 {
-    [RequireComponent(typeof(IRestartGameHandler))]
+    [RequireComponent(typeof(IUiEndGameController))]
     public class UiButtonsEndGame : MonoBehaviour,
         IButtonHandler,
         UiButtonRestart.IPressRestart
     {
-        private IRestartGameHandler PlayerHandler { get; set; }
+        private IUiEndGameController PlayerController { get; set; }
 
         void UiButtonRestart.IPressRestart.PressRestart()
         {
-            PlayerHandler.RestartGame();
+            PlayerController.RestartGame();
         }
 
         private void Awake()
         {
-            PlayerHandler = GetComponent<IRestartGameHandler>();
+            PlayerController = GetComponent<IUiEndGameController>();
 
             var buttons = gameObject.GetComponentsInChildren<UiButton>();
             foreach (var button in buttons)

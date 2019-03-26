@@ -1,91 +1,177 @@
-﻿using Patterns;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleTurnBasedGame.ControllerCs
+namespace SimpleTurnBasedGame
 {
-    /// <summary>
-    ///     Main Controller. Holds the FSM which controls the game flow. Also provides access to the players controllers.
-    /// </summary>
-    public class GameController : SingletonMB<GameController>, IGameController
+    public interface IGameController
     {
-        [SerializeField] private Configurations configurations;
+        void RegisterPlayerState(IPrimitivePlayer player, TurnState state);
+        bool IsMyTurn(PlayerSeat seat);
+        TurnState GetPlayer(IPrimitivePlayer player);
+        TurnState GetPlayer(PlayerSeat seat);
+        void StartBattle();
+        void EndBattle();
+        void RestartGameImmediately();
+    }
 
-        //----------------------------------------------------------------------------------------------------------
+    /// <summary>
+    ///     GameController is responsible to execute the game flow and provide access to the game model through
+    ///     each Battle State. For obvious
+    /// </summary>
+    //Game Data
+    [RequireComponent(typeof(IGameData))]
+    //Players States
+    [RequireComponent(typeof(TopPlayerState))]
+    [RequireComponent(typeof(BottomPlayerState))]
+    //Start and End States
+    [RequireComponent(typeof(StartBattleState))]
+    [RequireComponent(typeof(EndBattleState))]
+    public class GameController : StateMachineMB<GameController>, IGameController
+    {
+        //Register with all States of the Players that are in the Match. Each state controls
+        //the flow of the game 
+        private readonly Dictionary<IPrimitivePlayer, TurnState> actorsRegister =
+            new Dictionary<IPrimitivePlayer, TurnState>();
 
-        #region Properties
+        //It holds the flow of the start game state
+        private StartBattleState StartState { get; set; }
+
+        //It holds the flow of the end game state
+        private EndBattleState EndState { get; set; }
+
+        public IGameData GameData { get; private set; }
 
         /// <summary>
-        ///     All game data. Access via Singleton Pattern.
+        ///     Register the dependencies to its respective turn state.
         /// </summary>
-        public IGameData Data => GameData.Instance;
-
-        /// <summary>
-        ///     State machine that holds the game logic.
-        /// </summary>
-        private TurnBasedFsm TurnBasedLogic { get; set; }
-
-        /// <summary>
-        ///     Handler for the state machine. Used to dispatch coroutines.
-        /// </summary>
-        public MonoBehaviour MonoBehaviour => this;
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Initialization
-
-        protected override void OnAwake()
+        /// <param name="player"></param>
+        /// <param name="state"></param>
+        public void RegisterPlayerState(IPrimitivePlayer player, TurnState state)
         {
-            Logger.Instance.Log<GameController>("Awake");
-            TurnBasedLogic = new TurnBasedFsm(this, Data, configurations);
+            actorsRegister.Add(player, state);
         }
 
-        private void Start()
-        {
-            Logger.Instance.Log<GameController>("Start");
-            StartBattle();
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Operations
-
         /// <summary>
-        ///     Provides access to players controllers according to the player seat.
+        ///     Returns whether the current player is sitting on a specified seat.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
-        public IPlayerTurn GetPlayerController(PlayerSeat seat)
+        public bool IsMyTurn(PlayerSeat seat)
         {
-            return TurnBasedLogic.GetPlayerController(seat);
+            if (!IsInitialized)
+                return false;
+
+            var currentState = PeekState();
+            return currentState != null && GetPlayer(seat).IsMyTurn();
         }
 
         /// <summary>
-        ///     Start the battle. Called only once after being initialized by the Bootstrapper.
+        ///     Returns a Turn according to its registered player.
         /// </summary>
-        [Button]
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public TurnState GetPlayer(IPrimitivePlayer player)
+        {
+            return IsInitialized && actorsRegister.ContainsKey(player) ? actorsRegister[player] : null;
+        }
+
+        /// <summary>
+        ///     Returns a the player turn according to the position. Null if there isn't player registered with the argument.
+        /// </summary>
+        /// <param name="seat"></param>
+        /// <returns></returns>
+        public TurnState GetPlayer(PlayerSeat seat)
+        {
+            foreach (var player in actorsRegister.Keys)
+                if (player.Seat == seat)
+                    return actorsRegister[player];
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Call this method to Push Start Battle State and begin the match.
+        /// </summary>
         public void StartBattle()
         {
-            TurnBasedLogic.StartBattle();
+            if (!IsInitialized)
+                return;
+
+            PopState();
+            PushState(StartState);
         }
 
-        [Button]
+        /// <summary>
+        ///     Call this method to Push End Battle State and Finish the match.
+        /// </summary>
         public void EndBattle()
         {
-            TurnBasedLogic.EndBattle();
+            if (!IsInitialized)
+                return;
+
+            PopState();
+            PushState(EndState);
         }
 
-        [Button]
+        /// <summary>
+        ///     Deletes current game data and restarts the state machine with a new game data.
+        /// </summary>
+        [Button("Restart Immediately")]
         public void RestartGameImmediately()
         {
-            TurnBasedLogic.RestartGameImmediately();
+            //restart fsm 
+            Restart();
+
+            //overrides game data
+            GameData.Clear();
+            GameData.CreateGame();
+
+            //reinitialize the fsm
+            Initialize();
+
+            StartBattle();
         }
 
-        #endregion
+        /// <summary>
+        ///     Checks whether the current state is Bottom or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsUser()
+        {
+            if (!IsInitialized)
+                return false;
 
-        //----------------------------------------------------------------------------------------------------------
+            var currentState = PeekState();
+            return currentState is BottomPlayerState;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes the state machine after game data is ready. And kicks the start battle.
+        /// </summary>
+        protected override void Start()
+        {
+            base.Start();
+            StartBattle();
+        }
+
+        protected override void OnBeforeInitialize()
+        {
+            GameData = GetComponent<IGameData>();
+            StartState = GetComponent<StartBattleState>();
+            EndState = GetComponent<EndBattleState>();
+        }
+
+        public override void Restart()
+        {
+            base.Restart();
+
+            //reset states
+            foreach (var turnState in actorsRegister.Values)
+                turnState.Restart();
+
+            //clear turn state register
+            actorsRegister.Clear();
+        }
     }
 }

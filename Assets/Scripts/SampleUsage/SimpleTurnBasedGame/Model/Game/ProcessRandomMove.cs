@@ -4,19 +4,18 @@ namespace SimpleTurnBasedGame
 {
     public class ProcessRandomMove : ProcessBase
     {
+        private const int BonusByPlayingRandom = 2;
+
         public ProcessRandomMove(IPrimitiveGame game) : base(game)
         {
-            Bonus = Game.Configurations.Amount.Bonus.Value;
-
-            DamagePlus = new ProcessDamagePlus(game, Bonus);
-            HealPlus = new ProcessHealPlus(game, Bonus);
+            DamagePlus = new ProcessDamagePlus(game);
+            HealPlus = new ProcessHealPlus(game);
         }
 
-        public int Bonus { get; }
         private ProcessDamagePlus DamagePlus { get; }
         private ProcessHealPlus HealPlus { get; }
 
-        public void Execute()
+        public override void Execute()
         {
             var rdn = Random.Range(0, 2);
 
@@ -27,41 +26,32 @@ namespace SimpleTurnBasedGame
                 HealPlus.Execute();
         }
 
-        //----------------------------------------------------------------------------------------------------------
-
         #region Decorators
 
         private class ProcessDamagePlus : ProcessDamageMove
         {
-            public ProcessDamagePlus(IPrimitiveGame game, int bonus) : base(game)
+            public ProcessDamagePlus(IPrimitiveGame game) : base(game)
             {
-                Bonus = bonus;
             }
-
-            private int Bonus { get; }
 
             protected override int GetDamage()
             {
-                return base.GetDamage() + Bonus;
+                return base.GetDamage() + BonusByPlayingRandom;
             }
         }
 
         private class ProcessHealPlus : ProcessHealMove
         {
-            public ProcessHealPlus(IPrimitiveGame game, int bonus) : base(game)
+            public ProcessHealPlus(IPrimitiveGame game) : base(game)
             {
             }
 
-            private int Bonus { get; }
-
             protected override int GetHeal()
             {
-                return base.GetHeal() + Bonus;
+                return base.GetHeal() + BonusByPlayingRandom;
             }
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
     }
 }

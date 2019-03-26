@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -8,15 +9,12 @@ namespace SimpleTurnBasedGame
     /// </summary>
     public class Game : IPrimitiveGame
     {
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Constructor
-
-        public Game(List<IPrimitivePlayer> players, Configurations configurations)
+        public Game(List<IPrimitivePlayer> players)
         {
-            Configurations = configurations;
-            ProcessTurn = new ProcessTurn(players);
-            ProcessPreStartGame = new ProcessPreStartGame(this);
+            Token = new TokenTurnLogic(players);
+            Log("Game Created");
+
+            //Processes
             ProcessStartGame = new ProcessStartGame(this);
             ProcessStartPlayerTurn = new ProcessStartPlayer(this);
             ProcessFinishPlayerTurn = new ProcessFinishPlayer(this);
@@ -24,27 +22,29 @@ namespace SimpleTurnBasedGame
             ProcessHealMove = new ProcessHealMove(this);
             ProcessRandomMove = new ProcessRandomMove(this);
             ProcessTick = new ProcessTick(this);
-            Logger.Instance.Log<Game>("Game Created", "blue");
         }
 
-        #endregion
 
-        //----------------------------------------------------------------------------------------------------------
+        private void Log(string log, string colorName = "black")
+        {
+            log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
+            Debug.Log(log);
+        }
 
         #region Properties
 
-        ITurnLogic IPrimitiveGame.TurnLogic => ProcessTurn;
+        public TokenTurnLogic Token { get; }
+        ITokenTurnLogic IPrimitiveGame.Token => Token;
         public bool IsGameStarted { get; set; }
         public bool IsGameFinished { get; set; }
         public bool IsTurnInProgress { get; set; }
         public int TurnTime { get; set; }
         public int TotalTime { get; set; }
-        public Configurations Configurations { get; }
+
+        #endregion
 
         #region Processes
 
-        private ProcessTurn ProcessTurn { get; }
-        private ProcessPreStartGame ProcessPreStartGame { get; }
         private ProcessStartGame ProcessStartGame { get; }
         private ProcessTick ProcessTick { get; }
         private ProcessStartPlayer ProcessStartPlayerTurn { get; }
@@ -55,16 +55,7 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
         #region Execution
-
-        public void PreStartGame()
-        {
-            ProcessPreStartGame.Execute();
-        }
 
         public void StartGame()
         {
@@ -102,7 +93,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
     }
 }

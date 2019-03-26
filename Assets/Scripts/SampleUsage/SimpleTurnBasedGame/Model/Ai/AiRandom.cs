@@ -3,7 +3,7 @@
 namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    ///     This AiConfigs module makes random choices.
+    ///     This Ai module makes random choices.
     /// </summary>
     public class AiRandom : AiBase
     {

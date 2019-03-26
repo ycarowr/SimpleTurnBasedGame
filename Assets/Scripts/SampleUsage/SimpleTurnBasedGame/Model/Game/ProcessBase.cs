@@ -1,9 +1,11 @@
-﻿namespace SimpleTurnBasedGame
+﻿using Patterns;
+
+namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     Small Part of a Turn.
     /// </summary>
-    public abstract class ProcessBase
+    public abstract class ProcessBase : Command
     {
         protected ProcessBase(IPrimitiveGame game)
         {
@@ -14,5 +16,16 @@
         ///     All game data.
         /// </summary>
         protected IPrimitiveGame Game { get; set; }
+
+
+        public override void Execute()
+        {
+            
+        }
+
+        public override void Undo()
+        {
+            
+        }
     }
 }

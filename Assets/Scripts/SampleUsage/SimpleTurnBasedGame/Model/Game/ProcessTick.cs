@@ -1,21 +1,21 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     TimeOutTurn Logic Implementation
+    ///     TimeOut Logic Implementation
     /// </summary>
     public class ProcessTick : ProcessBase
     {
+        public const int TimeOut = 8;
+        public const int StartTurnDelay = 1;
+
         public ProcessTick(IPrimitiveGame game) : base(game)
         {
         }
 
-        private float TimeOutTurn => Game.Configurations.TimeOutTurn;
-        private float TimeStartTurn => Game.Configurations.TimeStartTurn;
-
         /// <summary>
         ///     Execution of the tick logic.
         /// </summary>
-        public void Execute()
+        public override void Execute()
         {
             if (!Game.IsTurnInProgress)
                 return;
@@ -28,8 +28,8 @@
 
             Game.TurnTime++;
             Game.TotalTime++;
-            var reverseTime = (int) (TimeOutTurn - 1 - Game.TurnTime - TimeStartTurn);
-            OnTickTime(reverseTime, Game.TurnLogic.CurrentPlayer);
+            var reverseTime = TimeOut - 1 - Game.TurnTime - StartTurnDelay;
+            OnTickTime(reverseTime, Game.Token.CurrentPlayer);
         }
 
         /// <summary>

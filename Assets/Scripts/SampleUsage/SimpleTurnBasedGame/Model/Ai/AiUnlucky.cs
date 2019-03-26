@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    ///     This AiConfigs Module will never try Random Moves.
+    ///     This Ai Module will never try Random Moves.
     /// </summary>
     public class AiUnlucky : AiBase
     {

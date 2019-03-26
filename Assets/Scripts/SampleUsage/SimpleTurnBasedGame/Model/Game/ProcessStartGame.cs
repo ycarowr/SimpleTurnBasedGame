@@ -1,4 +1,6 @@
-﻿namespace SimpleTurnBasedGame
+﻿using System.Collections.Generic;
+
+namespace SimpleTurnBasedGame
 {
     /// <inheritdoc />
     /// <summary>
@@ -13,14 +15,24 @@
         /// <summary>
         ///     Execution of start game
         /// </summary>
-        public void Execute()
+        public override void Execute()
         {
             if (Game.IsGameStarted) return;
 
             Game.IsGameStarted = true;
-            Game.TurnLogic.DecideStarterPlayer();
+            Game.Token.DecideStarterPlayer();
 
-            OnGameStarted(Game.TurnLogic.StarterPlayer);
+            OnGamePreStarted(Game.Token.Players);
+            OnGameStarted(Game.Token.StarterPlayer);
+        }
+
+        /// <summary>
+        ///     Dispatch pre start game event to the listeners
+        /// </summary>
+        /// <param name="players"></param>
+        private void OnGamePreStarted(List<IPrimitivePlayer> players)
+        {
+            GameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
         }
 
         /// <summary>
