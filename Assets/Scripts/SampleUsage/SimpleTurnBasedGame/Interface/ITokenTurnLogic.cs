@@ -2,7 +2,7 @@
 
 namespace SimpleTurnBasedGame
 {
-    public interface ITokenTurnLogic
+    public interface ITurnLogic
     {
         /// <summary>
         ///     List with all the players that are playing the match.
@@ -25,7 +25,7 @@ namespace SimpleTurnBasedGame
         IPrimitivePlayer CurrentPlayer { get; }
 
         /// <summary>
-        ///     PlayerController that started the match.
+        ///     GameController that started the match.
         /// </summary>
         IPrimitivePlayer StarterPlayer { get; }
 

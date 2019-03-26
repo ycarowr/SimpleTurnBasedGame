@@ -14687,6 +14687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 1}
+  configurations: {fileID: 11400000, guid: 26259bb5222f3db44bffb3b0146e2011, type: 2}
 --- !u!1 &2114905710
 GameObject:
   m_ObjectHideFlags: 0
@@ -24971,6 +24972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 1}
+  configurations: {fileID: 11400000, guid: 26259bb5222f3db44bffb3b0146e2011, type: 2}
 --- !u!1 &5298140604579513991
 GameObject:
   m_ObjectHideFlags: 0
@@ -24985,7 +24987,7 @@ GameObject:
   - component: {fileID: 5298140604579513989}
   - component: {fileID: 5155878488571154237}
   m_Layer: 0
-  m_Name: ButtonRandomPlus2
+  m_Name: ButtonRandomPlus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25154,7 +25156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f1f300aff065f4e86382075f565a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 2
 --- !u!114 &8822327596060848590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25345,7 +25346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0dd5a4679e1a4d8f1ef1bffe9d1bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 0
 --- !u!114 &4953447845544868021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31108,6 +31108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 1}
+  configurations: {fileID: 11400000, guid: 26259bb5222f3db44bffb3b0146e2011, type: 2}
 --- !u!1 &8100199240522644203
 GameObject:
   m_ObjectHideFlags: 0

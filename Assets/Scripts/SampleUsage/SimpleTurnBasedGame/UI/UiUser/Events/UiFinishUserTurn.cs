@@ -3,22 +3,30 @@
 namespace SimpleTurnBasedGame
 {
     [RequireComponent(typeof(IUiUserInput))]
-    [RequireComponent(typeof(IUiPlayerController))]
+    [RequireComponent(typeof(IUiPlayer))]
     public class UiFinishUserTurn : UiListener, IFinishPlayerTurn
     {
         private IUiUserInput UserInput { get; set; }
-        private IUiPlayerController Player { get; set; }
+        private IUiPlayer Ui { get; set; }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
 
         void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
         {
-            if (Player.IsUser)
+            if (Ui.PlayerController.IsUser)
                 UserInput.Disable();
         }
 
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
         private void Awake()
         {
+            Ui = GetComponent<IUiPlayer>();
             UserInput = GetComponent<IUiUserInput>();
-            Player = GetComponent<IUiPlayerController>();
         }
     }
 }

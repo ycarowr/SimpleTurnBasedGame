@@ -2,19 +2,19 @@
 {
     public class UiParticlesDamage : UiParticles, IDoDamage
     {
-        public IUiPlayerSeat Player { get; set; }
+        private IUiPlayer Ui { get; set; }
 
         void IDoDamage.OnDamage(IAttackable source, IDamageable target, int amount)
         {
             var player = target as IPrimitivePlayer;
-            if (player.Seat == Player.Seat)
+            if (player.Seat == Ui.Seat)
                 StartCoroutine(Play());
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Player = GetComponentInParent<IUiPlayerSeat>();
+            Ui = GetComponentInParent<IUiPlayer>();
         }
     }
 }

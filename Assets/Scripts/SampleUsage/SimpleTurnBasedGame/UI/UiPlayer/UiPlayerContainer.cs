@@ -2,35 +2,18 @@
 
 namespace SimpleTurnBasedGame
 {
-    /// <summary>
-    ///     All UI components that depend of a specific PlayerController.
-    /// </summary>
-    public interface IUiPlayerSeat
+    public interface IUiPlayer : IUiController, IUiPlayerController
     {
         PlayerSeat Seat { get; }
     }
 
-    public interface IUiPlayerController
+    /// <summary>
+    ///     Main player UI. It resolves the dependencies accessing the game controller via Singleton.
+    /// </summary>
+    public class UiPlayerContainer : MonoBehaviour, IUiPlayer
     {
-        bool IsAi { get; }
-        bool IsUser { get; }
-        bool IsMyTurn { get; }
-        TurnState Player { get; }
-    }
-
-    public class UiPlayerContainer : MonoBehaviour, IUiPlayerSeat, IUiPlayerController
-    {
-        [Tooltip("Position of the UI on the Screen. Assigned by the Editor.")] [SerializeField]
-        private PlayerSeat seat;
-
-        #region Properties
-
-        PlayerSeat IUiPlayerSeat.Seat => seat;
-        bool IUiPlayerController.IsUser => GameController.Instance.IsUser();
-        bool IUiPlayerController.IsMyTurn => GameController.Instance.IsMyTurn(seat);
-        bool IUiPlayerController.IsAi => GameController.Instance.GetPlayer(seat).IsAi;
-        TurnState IUiPlayerController.Player => GameController.Instance.GetPlayer(seat);
-
-        #endregion
+        public virtual PlayerSeat Seat => PlayerSeat.Top;
+        public IGameController GameController => ControllerCs.GameController.Instance;
+        public IPlayerTurn PlayerController => ControllerCs.GameController.Instance.GetPlayerController(Seat);
     }
 }

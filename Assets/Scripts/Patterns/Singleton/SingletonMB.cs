@@ -18,7 +18,7 @@ namespace Patterns
         private static readonly object locker = new object();
 
         [Tooltip("Mark it whether this singleton will be destroyed when the scene changes")] [SerializeField]
-        private bool isDontDestroyOnLoad = false;
+        private bool isDontDestroyOnLoad;
 
         [Tooltip(
             "Mark it whether the script raises an exception when another singleton like this is present in the scene")]

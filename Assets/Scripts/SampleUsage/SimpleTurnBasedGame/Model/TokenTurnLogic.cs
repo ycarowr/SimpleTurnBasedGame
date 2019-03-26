@@ -9,15 +9,17 @@ namespace SimpleTurnBasedGame
     ///     In order to accomplish it, it keeps track of the current player.
     ///     The implementation is done using a single index iterating over a list of players.
     /// </summary>
-    public class TokenTurnLogic : ITokenTurnLogic
+    public class ProcessTurn : ITurnLogic
     {
-        public TokenTurnLogic(
+        #region Constructor
+
+        public ProcessTurn(
             List<IPrimitivePlayer> players,
             PlayerSeat start = PlayerSeat.Bottom,
             PlayerSeat current = PlayerSeat.Bottom)
         {
             if (players == null)
-                throw new ArgumentException("A Null List is not a valid argument to Create a Token");
+                throw new ArgumentException("A Null List is not a valid argument to Create a TurnLogic");
             if (players.Count < 1)
                 throw new ArgumentException("Invalid number of players: " + players.Count);
 
@@ -26,6 +28,10 @@ namespace SimpleTurnBasedGame
             StarterPlayerSeat = start;
             CurrentPlayerSeat = current;
         }
+
+        #endregion
+
+        #region Properties
 
         public PlayerSeat CurrentPlayerSeat { get; private set; }
 
@@ -43,10 +49,14 @@ namespace SimpleTurnBasedGame
 
         public int QuantPlayers => Players.Count;
 
-        bool ITokenTurnLogic.IsMyTurn(IPrimitivePlayer player)
+        bool ITurnLogic.IsMyTurn(IPrimitivePlayer player)
         {
             return CurrentPlayer == player;
         }
+
+        #endregion
+
+        #region Operations
 
         /// <summary>
         ///     Assign next player to the current player.
@@ -103,5 +113,7 @@ namespace SimpleTurnBasedGame
         {
             StarterPlayerSeat = first;
         }
+
+        #endregion
     }
 }

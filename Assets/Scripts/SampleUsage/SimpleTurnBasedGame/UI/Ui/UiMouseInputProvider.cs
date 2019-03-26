@@ -32,6 +32,7 @@ namespace Tools.UI
         //enter
         new Action<PointerEventData> OnPointerEnter { get; set; }
         new Action<PointerEventData> OnPointerExit { get; set; }
+
         Vector2 MousePosition { get; }
         DragDirection DragDirection { get; }
     }
@@ -51,23 +52,9 @@ namespace Tools.UI
     [RequireComponent(typeof(Collider))]
     public class UiMouseInputProvider : MonoBehaviour, IMouseInput
     {
-        private Vector3 oldDragPosition;
+        //----------------------------------------------------------------------------------------------------------
 
-        //TODO: Consider to implement Safe Invokes.
-        Action<PointerEventData> IMouseInput.OnPointerDown { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerUp { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerClick { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnBeginDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnEndDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnDrop { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerEnter { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerExit { get; set; } = eventData => { };
-
-        DragDirection IMouseInput.DragDirection => GetDragDirection();
-        Vector2 IMouseInput.MousePosition => Input.mousePosition;
-
-        #region Unity Event
+        #region Unity Callbacks
 
         private void Awake()
         {
@@ -78,7 +65,9 @@ namespace Tools.UI
 
         #endregion
 
-        #region Extra
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Drag Direction
 
         /// <summary>
         ///     While dragging returns the direction of the movement.
@@ -103,6 +92,35 @@ namespace Tools.UI
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Delegates 
+
+        //TODO: Consider to implement Safe Invokes.
+        Action<PointerEventData> IMouseInput.OnPointerDown { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerUp { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerClick { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnBeginDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnEndDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnDrop { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerEnter { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerExit { get; set; } = eventData => { };
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Properties and Fields
+
+        private Vector3 oldDragPosition;
+        DragDirection IMouseInput.DragDirection => GetDragDirection();
+        Vector2 IMouseInput.MousePosition => Input.mousePosition;
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
 
         #region Unity Mouse Events
 
@@ -152,5 +170,7 @@ namespace Tools.UI
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------
     }
 }

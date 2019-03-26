@@ -4,18 +4,30 @@ using UnityEngine;
 namespace SimpleTurnBasedGame
 {
     [RequireComponent(typeof(IUiUserInput))]
-    [RequireComponent(typeof(IUiPlayerController))]
+    [RequireComponent(typeof(IUiPlayer))]
     public class UiStartUserTurn : UiListener, IStartPlayerTurn
     {
         private const float DelayToEnableInput = 2;
         private IUiUserInput UserInput { get; set; }
-        private IUiPlayerController Player { get; set; }
+        private IUiPlayer Ui { get; set; }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
 
         void IStartPlayerTurn.OnStartPlayerTurn(IPrimitivePlayer player)
         {
-            if (Player.IsUser && !Player.IsAi)
+            var isMyTurn = Ui.PlayerController.IsMyTurn;
+            var isUser = Ui.PlayerController.IsUser;
+            var notAi = !Ui.PlayerController.IsAi;
+
+            if (isMyTurn && isUser && notAi)
                 StartCoroutine(EnableInput());
         }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
 
         private IEnumerator EnableInput()
         {
@@ -25,8 +37,8 @@ namespace SimpleTurnBasedGame
 
         private void Awake()
         {
+            Ui = GetComponentInParent<IUiPlayer>();
             UserInput = GetComponent<IUiUserInput>();
-            Player = GetComponent<IUiPlayerController>();
         }
     }
 }

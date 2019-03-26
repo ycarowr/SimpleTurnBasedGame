@@ -35,38 +35,7 @@ namespace SimpleTurnBasedGame
         IFinishGame
     {
         private const float DelayToShow = 3.5f;
-
         private UITextMeshImage UiButton { get; set; }
-
-
-        void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
-        {
-            StartCoroutine(ShowButton());
-        }
-
-        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
-        {
-            UiButton.Enabled = false;
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            UiButton = new UITextMeshImage(
-                GetComponentInChildren<TMP_Text>(),
-                GetComponent<Image>());
-        }
-
-        private void Start()
-        {
-            GameEvents.Instance.AddListener(this);
-        }
-
-        private void OnDestroy()
-        {
-            if (GameEvents.Instance)
-                GameEvents.Instance.RemoveListener(this);
-        }
 
         protected override void OnSetHandler(IButtonHandler handler)
         {
@@ -84,5 +53,47 @@ namespace SimpleTurnBasedGame
         {
             void PressRestart();
         }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
+
+        void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
+        {
+            StartCoroutine(ShowButton());
+        }
+
+        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
+        {
+            UiButton.Enabled = false;
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Unity callbacks
+
+        protected void Awake()
+        {
+            UiButton = new UITextMeshImage(
+                GetComponentInChildren<TMP_Text>(),
+                GetComponent<Image>());
+        }
+
+        private void Start()
+        {
+            GameEvents.Instance.AddListener(this);
+        }
+
+        private void OnDestroy()
+        {
+            if (GameEvents.Instance)
+                GameEvents.Instance.RemoveListener(this);
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
     }
 }

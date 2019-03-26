@@ -16,7 +16,7 @@ namespace SimpleTurnBasedGame.Tests
 
                 void CreateBrokenToken()
                 {
-                    var token = (TokenTurnLogic) A.Token().WithPlayers(emptyList);
+                    var token = (ProcessTurn) A.Token().WithPlayers(emptyList);
                 }
 
                 Assert.Throws<ArgumentException>(CreateBrokenToken);
@@ -28,7 +28,7 @@ namespace SimpleTurnBasedGame.Tests
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenTurnLogic) A.Token().WithPlayers(players);
+                var token = (ProcessTurn) A.Token().WithPlayers(players);
 
                 //initial state has turn count equals to zero
                 Assert.AreEqual(token.TurnCount, 0);
@@ -42,7 +42,7 @@ namespace SimpleTurnBasedGame.Tests
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenTurnLogic) A.Token().WithPlayers(players);
+                var token = (ProcessTurn) A.Token().WithPlayers(players);
                 var quantPlayers = players.Count;
 
                 const PlayerSeat firstSeat = PlayerSeat.Bottom;
@@ -64,7 +64,7 @@ namespace SimpleTurnBasedGame.Tests
             public void UpdateTokenFrom0_IndexRemainsTheSame()
             {
                 const PlayerSeat firstPlayerSeat = PlayerSeat.Bottom;
-                var token = (TokenTurnLogic) A.Token()
+                var token = (ProcessTurn) A.Token()
                     .WithCurrentSeat(firstPlayerSeat)
                     .WithStartSeat(firstPlayerSeat);
 
@@ -86,7 +86,7 @@ namespace SimpleTurnBasedGame.Tests
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenTurnLogic) A.Token()
+                var token = (ProcessTurn) A.Token()
                     .WithPlayers(players)
                     .WithCurrentSeat(firstPlayerSeat)
                     .WithStartSeat(firstPlayerSeat);

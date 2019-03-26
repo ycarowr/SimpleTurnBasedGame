@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    ///     This Ai will always try to do damage.
+    ///     This AiConfigs will always try to do damage.
     /// </summary>
     public class AiAggressive : AiBase
     {

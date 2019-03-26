@@ -3,7 +3,7 @@ using Patterns;
 
 namespace SimpleTurnBasedGame.Infrastructure
 {
-    public class TokenBuilder : DataBuilder<TokenTurnLogic>
+    public class TokenBuilder : DataBuilder<ProcessTurn>
     {
         private PlayerSeat currentIndex;
         private List<IPrimitivePlayer> defaultPlayers;
@@ -36,9 +36,9 @@ namespace SimpleTurnBasedGame.Infrastructure
             return this;
         }
 
-        public override TokenTurnLogic Build()
+        public override ProcessTurn Build()
         {
-            return new TokenTurnLogic(defaultPlayers, startIndex, currentIndex);
+            return new ProcessTurn(defaultPlayers, startIndex, currentIndex);
         }
     }
 }
