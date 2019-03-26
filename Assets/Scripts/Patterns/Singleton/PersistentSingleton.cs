@@ -42,7 +42,8 @@ namespace Patterns
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance.
             var copies = FindObjectsOfType(typeof(T));
             foreach (var copy in copies)
-                Destroy(copy);
+                if (copy != instance)
+                    Destroy(copy);
         }
     }
 }

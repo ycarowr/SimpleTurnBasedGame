@@ -3,21 +3,21 @@
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Damage Logic Implementation
+    ///     DamagePlayers Logic Implementation
     /// </summary>
     public class ProcessHealMove : ProcessBase
     {
-        public const int MaxHeal = 4;
-        public const int MinHeal = 1;
-
         public ProcessHealMove(IPrimitiveGame game) : base(game)
         {
         }
 
+        private int MaxHeal => Game.Configurations.Amount.Heal.MaxHeal;
+        private int MinHeal => Game.Configurations.Amount.Heal.MinHeal;
+
         /// <summary>
         ///     Execution of the heal logic.
         /// </summary>
-        public override void Execute()
+        public void Execute()
         {
             if (!Game.IsTurnInProgress)
                 return;
@@ -29,7 +29,7 @@ namespace SimpleTurnBasedGame
                 return;
 
             //get players
-            var source = Game.Token.CurrentPlayer as IHealer;
+            var source = Game.TurnLogic.CurrentPlayer as IHealer;
             var target = source as IHealable;
 
             //do heal

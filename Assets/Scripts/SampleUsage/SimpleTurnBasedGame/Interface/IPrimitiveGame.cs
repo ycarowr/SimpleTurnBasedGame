@@ -6,7 +6,9 @@
     /// </summary>
     public interface IPrimitiveGame
     {
-        ITokenTurnLogic Token { get; }
+        Configurations Configurations { get; }
+
+        ITurnLogic TurnLogic { get; }
 
         bool IsGameStarted { get; set; }
 
@@ -17,6 +19,8 @@
         int TurnTime { get; set; }
 
         int TotalTime { get; set; }
+
+        void PreStartGame();
 
         void StartGame();
 

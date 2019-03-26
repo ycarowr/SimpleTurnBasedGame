@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Start Current PlayerController Turn Implementation.
+    ///     Start Current GameController Turn Implementation.
     /// </summary>
     public class ProcessStartPlayer : ProcessBase
     {
@@ -12,7 +12,7 @@
         /// <summary>
         ///     Start current player turn logic.
         /// </summary>
-        public override void Execute()
+        public void Execute()
         {
             if (Game.IsTurnInProgress)
                 return;
@@ -22,10 +22,10 @@
                 return;
 
             Game.IsTurnInProgress = true;
-            Game.Token.UpdateCurrentPlayer();
-            Game.Token.CurrentPlayer.StartTurn();
+            Game.TurnLogic.UpdateCurrentPlayer();
+            Game.TurnLogic.CurrentPlayer.StartTurn();
 
-            OnStartedCurrentPlayerTurn(Game.Token.CurrentPlayer);
+            OnStartedCurrentPlayerTurn(Game.TurnLogic.CurrentPlayer);
         }
 
         /// <summary>

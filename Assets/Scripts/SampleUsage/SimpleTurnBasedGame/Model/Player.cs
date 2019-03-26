@@ -9,17 +9,27 @@ namespace SimpleTurnBasedGame
         IDamageable, IAttackable,
         IHealable, IHealer
     {
-        private const int DefaultMaxHealth = 6;
-
-        public Player(PlayerSeat seat)
+        public Player(PlayerSeat seat, Configurations configurations = null)
         {
+            Configurations = configurations;
             Seat = seat;
+            DefaultMaxHealth = Configurations.Amount.HealthPlayers.GetHealth(seat);
             Health = DefaultMaxHealth;
         }
 
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Properties
+
+        private int DefaultMaxHealth { get; }
+        private Configurations Configurations { get; }
         public PlayerSeat Seat { get; }
         public int Health { get; private set; }
         public bool IsFullHealth => Health == DefaultMaxHealth;
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
 
         #region Turn
 
@@ -33,7 +43,9 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
-        #region Damage
+        //----------------------------------------------------------------------------------------------------------
+
+        #region DamagePlayers
 
         int IAttackable.DoAttack(IDamageable target, int bonusDamage)
         {
@@ -55,7 +67,9 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
-        #region Heal
+        //----------------------------------------------------------------------------------------------------------
+
+        #region HealPlayers
 
         int IHealer.DoHeal(IHealable target, int healAmount)
         {
@@ -76,5 +90,7 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------
     }
 }

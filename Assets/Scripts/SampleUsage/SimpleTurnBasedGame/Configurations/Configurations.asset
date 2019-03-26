@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6799e734a19d8a4f8c75c975c3057f6, type: 3}
+  m_Name: Configurations
+  m_EditorClassIdentifier: 
+  areLogsEnabled: 1
+  GameStart:
+    FirstPlayer: 3
+    PreGameEvent: 0.01
+    StartGameEvent: 0.01
+  PlayerTurn:
+    TimeOutTurn: 8
+    TimeStartTurn: 1
+  Ai:
+    AiDoTurnDelay: 2.5
+    AiFinishTurnDelay: 3.5
+    BottomPlayer:
+      Archetype: 6
+      IsAi: 0
+    TopPlayer:
+      Archetype: 2
+      IsAi: 1
+  Damage:
+    MaxDamage: 4
+    MinDamage: 1
+  Heal:
+    MaxHeal: 4
+    MinHeal: 1
+  HealthPlayers:
+    healthBottomPlayer: 6
+    healthTopPlayer: 6
+  Bonus:
+    Value: 2
