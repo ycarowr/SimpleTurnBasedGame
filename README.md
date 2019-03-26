@@ -19,11 +19,15 @@ Structures and funcionalities:
 - Timeouts for players turns;
 - Restart point.
 
-I am not going to go further with details about the implementation but basically you have a MVC with a separation between logic and the data. The game logic is driven and bunch of [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) and reflected in the following [Finite State Machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) in addition to many [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components:
+I am not going to go further with details about the implementation but basically you have a MVC with a separation between logic and the data. The game logic is driven and bunch of pure C# classes named [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) which change the game data and dispatch events to the interested listeners. 
 
-1. [Game Controllers](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller)
-2. [Game Model](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model)
-3. [More Logic](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game)
+The listeners are the [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components and the following [state machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) that has two purposes: to control the flow in the client side and work as controller to provide access to the Processes mentioned earlier:
+
+All the comunication among the View and Controller is done using the [Singleton Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/Patterns/Singleton) and the [Observer Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/Patterns/Observer/Observer.cs) named Game Events.
+
+1. [Game Controller](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller) and [Turn-Based States](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/States)
+2. [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes)
+3. [Game Model](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game)
 4. [Game Events](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/GameEvent)
 5. [Game Data](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/GameData)
 6. [Game UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI)
