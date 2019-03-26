@@ -21,9 +21,9 @@ Structures and funcionalities:
 
 I am not going to go further with details about the implementation but basically you have a MVC with a separation between logic and the data. The game logic is driven and bunch of pure C# classes named [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) which change the game data and dispatch events to the interested listeners. 
 
-The listeners are the [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components and the following [state machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) that has two purposes: to control the flow in the client side and work as controller to provide access to the Processes mentioned earlier:
+The listeners are the [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components and the following [State Machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) that has two purposes: to control the flow in the client side and hold the controllers (States) that provide access to the Processes mentioned earlier:
 
-All the comunication among the View and Controller is done using the [Singleton Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/Patterns/Singleton) and the [Observer Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/Patterns/Observer/Observer.cs) named Game Events.
+All the comunication among the Views and Controller is done using the [Singleton Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/Patterns/Singleton) and the [Observer Pattern](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/Patterns/Observer/Observer.cs).
 
 1. [Game Controller](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller) and [Turn-Based States](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/States)
 2. [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes)
@@ -38,7 +38,6 @@ All the comunication among the View and Controller is done using the [Singleton 
 Gif for a better visualization of the Game Flow:
 
 ![alt text](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Textures/SimpleTurnBasedGame/gifs/Game%20Flow.gif)
-
 
 The game is also a bit configurable:
 
