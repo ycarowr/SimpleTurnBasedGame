@@ -32,3 +32,9 @@ Links for the implementation:
 Gif for a better visualization of the Game Flow:
 
 ![alt text](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Textures/SimpleTurnBasedGame/gifs/Game%20Flow.gif)
+
+
+The game is also a bit configurable:
+
+![Configurations](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Configurations/Editor/configs.JPG)
+
