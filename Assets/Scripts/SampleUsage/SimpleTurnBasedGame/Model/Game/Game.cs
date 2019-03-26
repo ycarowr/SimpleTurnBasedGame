@@ -15,7 +15,7 @@ namespace SimpleTurnBasedGame
         public Game(List<IPrimitivePlayer> players, Configurations configurations)
         {
             Configurations = configurations;
-            ProcessTurn = new ProcessTurn(players);
+            ProcessTurn = new ProcessTurnLogic(players);
             ProcessPreStartGame = new ProcessPreStartGame(this);
             ProcessStartGame = new ProcessStartGame(this);
             ProcessStartPlayerTurn = new ProcessStartPlayer(this);
@@ -43,7 +43,7 @@ namespace SimpleTurnBasedGame
 
         #region Processes
 
-        private ProcessTurn ProcessTurn { get; }
+        private ProcessTurnLogic ProcessTurn { get; }
         private ProcessPreStartGame ProcessPreStartGame { get; }
         private ProcessStartGame ProcessStartGame { get; }
         private ProcessTick ProcessTick { get; }

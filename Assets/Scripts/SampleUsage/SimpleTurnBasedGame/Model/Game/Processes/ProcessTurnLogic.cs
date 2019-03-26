@@ -9,11 +9,13 @@ namespace SimpleTurnBasedGame
     ///     In order to accomplish it, it keeps track of the current player.
     ///     The implementation is done using a single index iterating over a list of players.
     /// </summary>
-    public class ProcessTurn : ITurnLogic
+    public class ProcessTurnLogic : ITurnLogic
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
         #region Constructor
 
-        public ProcessTurn(
+        public ProcessTurnLogic(
             List<IPrimitivePlayer> players,
             PlayerSeat start = PlayerSeat.Bottom,
             PlayerSeat current = PlayerSeat.Bottom)
@@ -30,6 +32,8 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Properties
 
@@ -55,6 +59,8 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
 
@@ -115,5 +121,7 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }
