@@ -19,15 +19,17 @@ Structures and funcionalities:
 - Timeouts for players turns;
 - Restart point.
 
-Links for the implementation:
+I am not going to go further with details about the implementation but basically you have a MVC with a separation between logic and the data. The game logic is driven and bunch of [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) and reflected in the following [Finite State Machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) in addition to many [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components:
 
 1. [Game Controllers](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller)
 2. [Game Model](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model)
-3. [Game Events](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/GameEvent)
-4. [Game UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI)
-5. [Game AI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Ai)
-6. [Some Patterns Used in the Implementation](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/Patterns)
-7. [Configurations](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Configurations)
+3. [More Logic](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game)
+4. [Game Events](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/GameEvent)
+5. [Game Data](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/GameData)
+6. [Game UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI)
+7. [Game AI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Ai)
+8. [Some Patterns Used in the Implementation](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/Patterns)
+9. [Configurations](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Configurations)
 
 Gif for a better visualization of the Game Flow:
 
@@ -37,4 +39,3 @@ Gif for a better visualization of the Game Flow:
 The game is also a bit configurable:
 
 ![Configurations](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Configurations/Editor/configs.JPG)
-
