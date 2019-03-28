@@ -6,6 +6,10 @@ namespace SimpleTurnBasedGame.ControllerCs
     {
         private class PlayerMoves
         {
+            //----------------------------------------------------------------------------------------------------------
+
+            #region Constructor
+            
             private IPrimitivePlayer Player { get; }
             private IGameData GameData { get; }
             private bool IsMyTurn => GameData.RuntimeGame.TurnLogic.IsMyTurn(Player);
@@ -14,6 +18,24 @@ namespace SimpleTurnBasedGame.ControllerCs
             {
                 GameData = gameData;
                 Player = player;
+            }
+            
+            #endregion
+            
+            //----------------------------------------------------------------------------------------------------------
+
+            #region Moves
+
+            /// <summary>
+            ///     Check if the player can pass the turn and passes the turn to the next player.
+            /// </summary>
+            public bool TryPassTurn()
+            {
+                if (!IsMyTurn)
+                    return false;
+
+                GameData.RuntimeGame.FinishCurrentPlayerTurn();
+                return true;
             }
             
             /// <summary>
@@ -35,19 +57,13 @@ namespace SimpleTurnBasedGame.ControllerCs
                         throw new ArgumentOutOfRangeException(nameof(move), move, null);
                 }
             }
+            
+            #endregion
+            
+            //----------------------------------------------------------------------------------------------------------
 
-            /// <summary>
-            ///     Check if the player can pass the turn and passes the turn to the next player.
-            /// </summary>
-            public bool TryPassTurn()
-            {
-                if (!IsMyTurn)
-                    return false;
-
-                GameData.RuntimeGame.FinishCurrentPlayerTurn();
-                return true;
-            }
-
+            #region Private
+            
             private bool TryRandom()
             {
                 if (!IsMyTurn)
@@ -77,6 +93,10 @@ namespace SimpleTurnBasedGame.ControllerCs
                 TryPassTurn();
                 return true;
             }
+            
+            #endregion
+            
+            //----------------------------------------------------------------------------------------------------------
         }
     }
 }
