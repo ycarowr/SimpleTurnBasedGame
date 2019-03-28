@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame.ControllerCs
 {
@@ -37,32 +36,8 @@ namespace SimpleTurnBasedGame.ControllerCs
         public virtual bool IsUser => false;
         private Coroutine TimeOutRoutine { get; set; }
         private Coroutine TickRoutine { get; set; }
-        
         private PlayerMoves Moves { get; }
         
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Game Events
-
-        void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
-        {
-            if (IsMyTurn)
-                NextTurn();
-        }
-
-        /// <summary>
-        ///     Switches the turn according to the next player.
-        /// </summary>
-        private void NextTurn()
-        {
-            var game = GameData.RuntimeGame;
-            var nextPlayer = game.TurnLogic.NextPlayer;
-            var nextState = Fsm.GetPlayerController(nextPlayer);
-            OnNextState(nextState);
-        }
 
         #endregion
 
@@ -111,49 +86,6 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         //----------------------------------------------------------------------------------------------------------
 
-        #region Coroutines
-
-        private IEnumerator TickRoutineAsync()
-        {
-            while (true)
-            {
-                //every second
-                yield return new WaitForSeconds(1);
-                GameData.RuntimeGame.Tick();
-            }
-        }
-
-        /// <summary>
-        ///     Finishes the player turn.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IEnumerator TimeOut()
-        {
-            if (TimeOutRoutine != null)
-                Fsm.Handler.MonoBehaviour.StopCoroutine(TimeOutRoutine);
-            else
-                yield return new WaitForSeconds(Configurations.TimeOutTurn);
-
-            Moves.TryPassTurn();
-        }
-
-        /// <summary>
-        ///     Starts the player turn.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IEnumerator StartTurn()
-        {
-            yield return new WaitForSeconds(Configurations.TimeStartTurn);
-            GameData.RuntimeGame.StartCurrentPlayerTurn();
-
-            //setup tick routine
-            TickRoutine = Fsm.Handler.MonoBehaviour.StartCoroutine(TickRoutineAsync());
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
         #region Player Moves
 
         public bool ProcessMove(MoveType move)
@@ -164,6 +96,6 @@ namespace SimpleTurnBasedGame.ControllerCs
         #endregion
         
         //----------------------------------------------------------------------------------------------------------
-    }    
+    }
 }
 
