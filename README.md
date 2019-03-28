@@ -39,6 +39,10 @@ Gif for a better visualization of the Game Flow:
 
 ![alt text](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Textures/SimpleTurnBasedGame/gifs/Game%20Flow.gif)
 
-The game is also a bit configurable:
+The game is also a bit configurable, you can define:
+- Players Health;
+- Turn time out and time until start game;
+- Damage, Heal and Bonus for Random
+- AI Archetypes for both players;
 
 ![Configurations](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Configurations/Editor/configs.JPG)
