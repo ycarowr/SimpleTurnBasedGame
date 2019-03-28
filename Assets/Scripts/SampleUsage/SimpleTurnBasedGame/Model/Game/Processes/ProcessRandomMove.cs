@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame
             HealPlus = new ProcessHealPlus(game, Bonus);
         }
 
-        public int Bonus { get; }
+        private int Bonus { get; }
         private ProcessDamagePlus DamagePlus { get; }
         private ProcessHealPlus HealPlus { get; }
 
@@ -50,6 +50,7 @@ namespace SimpleTurnBasedGame
         {
             public ProcessHealPlus(IPrimitiveGame game, int bonus) : base(game)
             {
+                Bonus = bonus;
             }
 
             private int Bonus { get; }

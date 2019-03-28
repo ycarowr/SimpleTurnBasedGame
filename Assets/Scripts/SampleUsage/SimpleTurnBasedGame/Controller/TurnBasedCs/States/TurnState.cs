@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame.ControllerCs
 {
-    public abstract class TurnState : BaseBattleState, IFinishPlayerTurn, IPlayerTurn
+    public abstract partial class TurnState : BaseBattleState, IFinishPlayerTurn, IPlayerTurn
     {
         //----------------------------------------------------------------------------------------------------------
 
@@ -20,6 +19,8 @@ namespace SimpleTurnBasedGame.ControllerCs
 
             //register turn state
             Fsm.RegisterPlayerState(Player, this);
+            
+            Moves = new PlayerMoves(GameData, Player);
         }
 
         #endregion
@@ -34,9 +35,11 @@ namespace SimpleTurnBasedGame.ControllerCs
         public virtual PlayerSeat Seat => PlayerSeat.Top;
         public virtual bool IsAi => false;
         public virtual bool IsUser => false;
-
         private Coroutine TimeOutRoutine { get; set; }
         private Coroutine TickRoutine { get; set; }
+        
+        private PlayerMoves Moves { get; }
+        
 
         #endregion
 
@@ -104,74 +107,6 @@ namespace SimpleTurnBasedGame.ControllerCs
             TickRoutine = null;
         }
 
-        #region Player Moves
-
-        /// <summary>
-        ///     Processes a move based on its Type.
-        /// </summary>
-        /// <param name="move"></param>
-        /// <returns></returns>
-        public bool ProcessMove(MoveType move)
-        {
-            switch (move)
-            {
-                case MoveType.RandomMove:
-                    return TryRandom();
-                case MoveType.DamageMove:
-                    return TryDamage();
-                case MoveType.HealMove:
-                    return TryHeal();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(move), move, null);
-            }
-        }
-
-        /// <summary>
-        ///     Check if the player can pass the turn and passes the turn to the next player.
-        /// </summary>
-        protected bool TryPassTurn()
-        {
-            if (!IsMyTurn)
-                return false;
-
-            GameData.RuntimeGame.FinishCurrentPlayerTurn();
-            return true;
-        }
-
-        protected bool TryRandom()
-        {
-            if (!IsMyTurn)
-                return false;
-
-            GameData.RuntimeGame.Random();
-            TryPassTurn();
-            return true;
-        }
-
-        protected bool TryHeal()
-        {
-            if (!IsMyTurn)
-                return false;
-
-            GameData.RuntimeGame.Heal();
-            TryPassTurn();
-            return true;
-        }
-
-        protected bool TryDamage()
-        {
-            if (!IsMyTurn)
-                return false;
-
-            GameData.RuntimeGame.Damage();
-            TryPassTurn();
-            return true;
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
@@ -199,7 +134,7 @@ namespace SimpleTurnBasedGame.ControllerCs
             else
                 yield return new WaitForSeconds(Configurations.TimeOutTurn);
 
-            TryPassTurn();
+            Moves.TryPassTurn();
         }
 
         /// <summary>
@@ -218,5 +153,17 @@ namespace SimpleTurnBasedGame.ControllerCs
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
-    }
+
+        #region Player Moves
+
+        public bool ProcessMove(MoveType move)
+        {
+            return Moves.ProcessMove(move);
+        }
+
+        #endregion
+        
+        //----------------------------------------------------------------------------------------------------------
+    }    
 }
+
