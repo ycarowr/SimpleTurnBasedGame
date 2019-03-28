@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame.ControllerCs
     public abstract partial class TurnState
     {
         #region Coroutines
-
+    
         private IEnumerator TickRoutineAsync()
         {
             while (true)
@@ -21,14 +21,14 @@ namespace SimpleTurnBasedGame.ControllerCs
         ///     Finishes the player turn.
         /// </summary>
         /// <returns></returns>
-        protected virtual IEnumerator TimeOut()
+        protected IEnumerator TimeOut()
         {
             if (TimeOutRoutine != null)
                 Fsm.Handler.MonoBehaviour.StopCoroutine(TimeOutRoutine);
             else
                 yield return new WaitForSeconds(Configurations.TimeOutTurn);
 
-            Moves.TryPassTurn();
+            TryPassTurn();
         }
 
         /// <summary>

@@ -18,8 +18,6 @@ namespace SimpleTurnBasedGame.ControllerCs
 
             //register turn state
             Fsm.RegisterPlayerState(Player, this);
-            
-            Moves = new PlayerMoves(GameData, Player);
         }
 
         #endregion
@@ -36,8 +34,6 @@ namespace SimpleTurnBasedGame.ControllerCs
         public virtual bool IsUser => false;
         private Coroutine TimeOutRoutine { get; set; }
         private Coroutine TickRoutine { get; set; }
-        private PlayerMoves Moves { get; }
-        
 
         #endregion
 
@@ -84,17 +80,6 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #endregion
 
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Player Moves
-
-        public bool ProcessMove(MoveType move)
-        {
-            return Moves.ProcessMove(move);
-        }
-
-        #endregion
-        
         //----------------------------------------------------------------------------------------------------------
     }
 }
