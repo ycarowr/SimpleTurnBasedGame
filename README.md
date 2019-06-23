@@ -1,6 +1,9 @@
 # Simple Turn-Based Game Core Mechanics
 
-The idea here is to have the core implementation and the basic funcionalities of a turn-based game working in a clean repository. Every time I start a new project/prototype I may use this implementation and skip rebuilding the basics.
+The idea here is to have the core implementation and the basic funcionalities of a turn-based game working in a clean repository, so every time a new project/prototype comes along I may use this implementation and skip rebuilding the basics mechanics.
+
+
+Description of the game:
 
 The player who starts the match is decided randomly before the game starts. The game play consists in a fight between two players where both start the match with some health points. Each turn the current player has to choose one of the options below and then pass the turn:
 
