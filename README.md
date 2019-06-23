@@ -22,7 +22,7 @@ Structures and funcionalities:
 - Timeouts for players turns;
 - Restart point.
 
-I am not going to go further with details about the implementation but basically you have a MVC with a separation between logic and the data. The game logic is driven and bunch of pure C# classes named [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) which change the game data and dispatch events to the interested listeners. 
+I am not going to go further with details about the implementation because you can check the repo. But the idea is to have a MVC with a separation between logic and the data. The game logic driven and bunch of pure C# classes named [Processes](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Model/Game/Processes) which change the game data and dispatch events to the interested listeners. 
 
 The listeners are the [UI](https://github.com/ycarowr/SimpleTurnBasedGame/tree/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/UI) components and the following [State Machine](https://github.com/ycarowr/SimpleTurnBasedGame/blob/master/Assets/Scripts/SampleUsage/SimpleTurnBasedGame/Controller/TurnBasedCs/TurnBasedFSM.cs) that has two purposes: to control the flow in the client side and hold the controllers (States) that provide access to the Processes mentioned earlier:
 
