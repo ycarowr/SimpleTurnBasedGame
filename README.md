@@ -2,7 +2,7 @@
 
 The repository contains the realization of the concepts described in this [repo](https://github.com/ycarowr/TurnBasedGameTemplate)
 
-Description of the game:
+## Description of the game:
 
 The player who starts the match is decided randomly before the game starts, and the game play consists in a fight between two players who start the match with some health points. On each of the players turns, they have to choose one of the actions below:
 
@@ -13,7 +13,7 @@ The player who starts the match is decided randomly before the game starts, and 
 
 The loser is the player who reaches zero life points first.
 
-Structures and funcionalities:
+## Structures and funcionalities:
 - Two players, both sitting in the respective positions: Top and Bottom; (can be extended to more players)
 - Events such as Start and End match integrated with a simple UI;
 - Events like Player Started and Finished Turn also integrated with a simple UI;
