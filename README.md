@@ -1,7 +1,6 @@
 # Simple Turn-Based Game Core Mechanics
 
-The idea here is to have the core implementation and the basic funcionalities of a turn-based game working in a clean repository, so every time a new project/prototype comes along I may use this implementation and skip rebuilding the basics mechanics.
-
+The repository contains the realization of the concepts described in this [repo](https://github.com/ycarowr/TurnBasedGameTemplate)
 
 Description of the game:
 
